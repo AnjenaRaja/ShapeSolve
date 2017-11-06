@@ -1,4 +1,5 @@
 import math
+from graphics import *
 from random import randint
 
 # Setup rounding decimal places
@@ -62,6 +63,7 @@ def ProcessUserTriangle():
         print("Area of the triangle = " + str(AreaOfTriangle(a, b, c)) + " square units")
         print("Perimeter of the triangle = " + str(PerimeterOfTriangle(a, b, c)) + " units")
         print("The internal angles are = " + str(ComputeInternalAngle(a,b,c, "A")) + "°, " + str(ComputeInternalAngle(a,b,c, "B")) + "° and " + str(ComputeInternalAngle(a,b,c, "C")) + "°")
+        DrawTriangle(a, b, c)
     else:
         print("The sides '" + str(a) + "', '" + str(b) + "' and '" + str(c) + "' do not form a valid triangle.")
 
@@ -90,6 +92,7 @@ def ProcessUserRectangle():
     if IsValidRectangle(l, b):
         print("Area of the rectangle = " + str(AreaOfRectangle(l, b)) + " square units")
         print("Perimeter of the rectangle = " + str(PerimeterOfRectangle(l, b)) + " units")
+        DrawRectangle(l, b)
     else:
         print("The sides '" + str(l) + "' and '" + str(b) + "' do not form a valid rectangle.")   
 
@@ -118,6 +121,7 @@ def ProcessUserSquare():
     if IsValidSquare(s):
         print("Area of the square = " + str(AreaOfSquare(s)) + " square units")
         print("Perimeter of the square = " + str(PerimeterOfSquare(s)) + " units")
+        DrawSquare(s)
     else:
         print("The side '" + str(s) + "' does not form a valid square.")    
 
@@ -145,6 +149,7 @@ def ProcessUserCircle():
     if IsValidCircle(r):
         print("Area of the circle = " + str(AreaOfCircle(r)) + " square units")
         print("Circumference of the circle = " + str(CircumferenceOfCircle(r)) + " units")
+        DrawCircle(r)
     else:
         print("The radius '" + str(r) + "' does not form a valid circle.")    
 
@@ -415,13 +420,114 @@ def DisplayQuiz():
         else:
             print("The perimeter you have calculated is incorrect. :(");
             print("Perimeter of the triangle = " + str(perimeter) + " units")        
-   
+
+# Scale shapes to adequate size to fit in screen
+def scale (x):
+    return x*200/11
+
+# Draw a circle
+def DrawCircle(r):    
+    # Initialize Graphics
+    win=GraphWin("ShapeSolve",500,600)
+    win.setBackground("white")
+    t = Text(Point(250,10), "ShapeSolve Graphics!")
+    t.setStyle("bold")
+    t.draw(win)
+
+    if r <= 12:
+        Circle(Point(250, 250), scale(r)).draw(win)
+        Point(250, 250).draw(win)
+    
+        Text(Point(250, 560), "This is your circle with radius = "+ str(r)).draw(win)
+    else:
+        Text(Point(250, 560), "The circle is too big to fit to screen.").draw(win)    
+        
+    Text(Point(250, 580), "Click your mouse to continue.").draw(win)
+
+    try:
+        win.getMouse()
+        win.close()
+    except:
+        return
+    
+# Draw a Rectangle
+def DrawRectangle(l, b):    
+    # Initialize Graphics
+    win=GraphWin("ShapeSolve",500,600)
+    win.setBackground("white")
+    t = Text(Point(250,10), "ShapeSolve Graphics!")
+    t.setStyle("bold")
+    t.draw(win)
+
+    if l <= 12 and b <= 12:
+        start = 250 - scale(l)/2
+        end = 250 - scale(b)/2
+        
+        Rectangle(Point(start, end), Point(start + scale(l), end + scale(b))).draw(win)
+    
+        Text(Point(250, 560), "This is your rectangle with sides "+ str(l) + " and " + str(b) + ".").draw(win)
+    else:
+        Text(Point(250, 560), "The rectangle is too big to fit to screen.").draw(win)    
+        
+    Text(Point(250, 580), "Click your mouse to continue.").draw(win)
+
+    try:
+        win.getMouse()
+        win.close()
+    except:
+        return
+
+def DrawTriangle(a, b, c):    
+    # Initialize Graphics
+    win=GraphWin("ShapeSolve",500,600)
+    win.setCoords(0,0,20,20)
+
+    win.setBackground("white")
+    t = Text(Point(10,19), "ShapeSolve Graphics!")
+    t.setStyle("bold")
+    t.draw(win)
+
+    xoffset = 7
+    yoffset = 5
+    
+    if a <= 12 and b <= 12 and c <= 12:
+        O = Point(0 + xoffset, 0 + yoffset)
+        A = Point(a + xoffset, 0 + yoffset)
+        
+        angB = ComputeInternalAngle(a, b, c, "B")
+
+        X = math.cos(angB*180/math.pi)*c 
+
+        Y = math.sin(angB*180/math.pi)*c
+
+        X = (b*b+a*a-c*c)/(2*a)
+
+        Y = math.sqrt(abs(b*b-X*X))
+        
+        B = Point(X + xoffset, Y + yoffset)
+        
+        Polygon(B, O, A).draw(win)
+
+        Text(Point(10, 2), "This is your triangle with sides "+ str(a) + ", " + str(b) + " and " + str(c) + ".").draw(win)
+    else:
+        Text(Point(10, 2), "The triangle is too big to fit to screen.").draw(win)    
+        
+    Text(Point(10, 1), "Click your mouse to continue.").draw(win)
+
+    try:
+        win.getMouse()
+        win.close()
+    except:
+        return
+    
+# Draw a Square
+def DrawSquare(a):
+    DrawRectangle(a, a)
+
 # Main program flow
 def Main():
     #ClearScreen()
-    DisplaySplashScreen()
+    DisplaySplashScreen()    
     DisplayMainMenu()
- 
+
 Main()
-
-
