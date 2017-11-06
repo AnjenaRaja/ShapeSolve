@@ -10,8 +10,13 @@ I strongly believe ShapeSolver will help students and I plan to make it open sou
 Thank you for your time and attention.
 
 Python – Programming language such as C or JAVA
+
 IDLE – Integrated DeveLopment Environment
+
 Flowchart – A diagram that represents the software workflow
+
 Open Source – Source code of the software is made available free for all, to learn and improve
+
 SAT – Scholastic Aptitude/Assessment Test
+
 ACT – American College Test
