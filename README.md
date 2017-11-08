@@ -2,7 +2,7 @@
 
 Hello, I am Anjena. 
 
-I will develop a program called ShapeSolver that would solve geometry problems for my project.
+I will develop a program called ShapeSolve that would solve geometry problems for my project.
 
 I have always liked math and computer programming so this project will help me learn Python programming and help students learn math.
 I will need a computer, Python’s development environment called IDLE and books. I might also need a thumb drive to backup my work.
